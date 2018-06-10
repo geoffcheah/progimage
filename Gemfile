@@ -27,9 +27,11 @@ gem 'webpacker'
 
 group :development do
   gem 'web-console', '>= 3.3.0'
+  gem 'rspec-rails', '~> 3.7'
 end
 
 group :development, :test do
+  gem 'rspec-rails', '~> 3.7'
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'listen', '~> 3.0.5'
