@@ -14,7 +14,7 @@ RSpec.describe "Picture", :type => :model do
 
   context "when looking at a picture's attributes" do
     it "should have a unique name" do
-      picture_with_same_name = Picture.new(valid_attributes)
+      picture_with_same_name = Picture.new(name: valid_attributes[:name])
       expect(picture_with_same_name).not_to be_valid
     end
 
@@ -34,6 +34,11 @@ RSpec.describe "Picture", :type => :model do
 
     it "belongs to a user" do
       expect(picture.user).to eq(user)
+    end
+
+    it "has a unique remote_url" do
+      picture_with_same_url = Picture.new(remote_url: valid_attributes[:remote_url])
+      expect(picture_with_same_url).not_to be_valid
     end
   end
 end
