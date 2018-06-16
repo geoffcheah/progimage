@@ -21,4 +21,15 @@ describe "Pictures API" do
     end
   end
 
+  context "when calling the POST api/v1/pictures) endpoint" do
+    it "returns a json with the newly created picture's key information" do
+      post "/api/v1/pictures"
+      expect(response).to be_success
+      get 'api/v1/pictures/:id'
+      expec(response).to be_success
+      expect(parsed_json["name"]).to eq("IMG_8394.JPG")
+      expect(parsed_json["remote_url"]).to eq("https://s3-eu-west-1.amazonaws.com/progimage30/image_uploads/IMG_8394.JPG")
+    end
+  end
+
 end
