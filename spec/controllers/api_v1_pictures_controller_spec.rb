@@ -27,7 +27,8 @@ RSpec.describe Api::V1::PicturesController, :type => :controller do
     end
 
     it "returns a 200 OK status" do
-      get :show
+      picture = Picture.create!(valid_attributes)
+      get :show, params: { :id => picture.to_param }
       expect(response).to have_http_status(:ok)
     end
   end
