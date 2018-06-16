@@ -15,6 +15,7 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'fog-aws'
 gem "simple_token_authentication"
+gem 'aws-sdk-s3', '~> 1.0.0.rc2'
 
 
 gem 'autoprefixer-rails'
