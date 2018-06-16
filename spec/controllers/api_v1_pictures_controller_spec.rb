@@ -53,7 +53,7 @@ RSpec.describe Api::V1::PicturesController, :type => :controller do
         expect(response).to have_http_status(:created)
       end
 
-      it "renders the show json template" do
+      it "renders the json template for an individual picture (show)" do
         post :create, params: { :picture => valid_attributes }
         expect(response).to render_template(:show)
       end
@@ -71,5 +71,22 @@ RSpec.describe Api::V1::PicturesController, :type => :controller do
       end
     end
   end
+
+  # describe "POST convert" do
+  #   let(:valid_request) do
+  #     {
+  #       id: "1",
+  #       format: "png"
+  #     }
+  #   end
+
+  #   context "with valid request parameters" do
+  #     it "gets the right picture and its url" do
+  #       post :convert, params { :}
+  #       picture = Picture.find(valid_request[:id])
+  #       expect(picture).to be
+  #     end
+  #   end
+  # end
 
 end
