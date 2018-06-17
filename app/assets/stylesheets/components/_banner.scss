@@ -1,0 +1,17 @@
+.banner {
+  background-image: linear-gradient(-225deg, rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url("https://images.unsplash.com/photo-1455264745730-cb3b76250ae8?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=f7e384e6bc7ba03fea009a4e92b20924&auto=format&fit=crop&w=2654&q=80");
+  height: calc(100vh - 70px);
+  background-size: cover;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.banner-content {
+  text-align: center;
+}
+
+.banner-subheader {
+  opacity: 0.6;
+}

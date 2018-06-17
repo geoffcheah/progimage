@@ -1,0 +1,29 @@
+<div class="container">
+  <h1>Hi <%= @user.email %></h1>
+
+  <div class="details-box">
+    <% if @user.pictures %>
+      <p>You have uploaded <strong><%= @user.pictures.count %></strong> images</p>
+    <% else %>
+      <p>You havent used the API yet to upload any image yet</p>
+    <% end %>
+    <p> <i>View them online at: </i> https://s3-eu-west-1.amazonaws.com/progimage30/image_uploads/<strong>image-name-here</strong></p>
+  </div>
+
+
+  <div class="details-box">
+    <h4>Here are your key users details to use the API:</h4>
+    <p>API Access User Token: <strong><%= @user.authentication_token %></strong></p>
+    <p>- required if you want to upload an image or convert an image... Keep it safe!</p>
+  </div>
+
+  <div class="details-box">
+    <h4>Key endpoint links:</h4>
+    <p><strong>GET an uploaded image's :id, :description, :remote_url</strong></p>
+    <p>- https://progimage30.herokuapp.com/api/v1/pictures/:id </p>
+    <p><strong>POST - upload an image. The API accepts multipart form data. You must supply a :name (image file name inculding extension), :description (optional) and of course the file.</strong></p>
+    <p>- https://progimage30.herokuapp.com/api/v1/pictures </p>
+    <p><strong>POST - convert an already existing image you've uploaded. Supply the image :id and :format (desired image format, e.g png or jpg etc.) </strong></p>
+    <p>- https://progimage30.herokuapp.com/api/v1/pictures/convert</p>
+  </div>
+</div>
