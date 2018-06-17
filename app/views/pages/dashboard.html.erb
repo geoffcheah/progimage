@@ -21,7 +21,7 @@
     <h4>Key endpoint links:</h4>
     <p><strong>GET an uploaded image's :id, :description, :remote_url</strong></p>
     <p>- https://progimage30.herokuapp.com/api/v1/pictures/:id </p>
-    <p><strong>POST - upload an image. The API accepts multipart form data. You must supply a :name (image file name inculding extension), :description (optional) and of course the file.</strong></p>
+    <p><strong>POST - upload an image. The API accepts multipart form data. You must supply certain keys: :name (image file name inculding extension), :description (optional) and of course the file, with the key :picture.</strong></p>
     <p>- https://progimage30.herokuapp.com/api/v1/pictures </p>
     <p><strong>POST - convert an already existing image you've uploaded. Supply the image :id and :format (desired image format, e.g png or jpg etc.) </strong></p>
     <p>- https://progimage30.herokuapp.com/api/v1/pictures/convert</p>
