@@ -33,6 +33,7 @@ class Api::V1::PicturesController < Api::V1::BaseController
     image = MiniMagick::Image.open(image_url)
     image.format(new_format)
     image_to_upload = image.tempfile
+     # image_to_upload = ConvertImageService.new(image_url, new_format).call
     UploadToS3Service.new(new_image_name, image_to_upload).call
     @picture = Picture.new(name: new_image_name, description: @picture.description, user: @picture.user )
     @picture.remote_url = "https://s3-eu-west-1.amazonaws.com/progimage30/image_uploads/#{new_image_name}"
