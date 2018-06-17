@@ -6,11 +6,22 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+puts "destroying previous seed"
+
+User.destroy_all!
+Picture.destroy_all!
+
+puts "creating a new user"
+
 user = User.create!(email: "g@gmail.com", password: "123456")
 
-picture = Picture.create!({
+puts "creating a new picture"
+
+Picture.create!({
       name: "IMG_8394.JPG",
       description: "first image record in db",
       remote_url: "https://s3-eu-west-1.amazonaws.com/progimage30/image_uploads/IMG_8394.JPG",
       user: user
     })
+
+puts "finished"
