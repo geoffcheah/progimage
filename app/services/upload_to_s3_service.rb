@@ -9,7 +9,7 @@ class UploadToS3Service
     obj = s3.bucket("progimage30").object("image_uploads/#{@image_key_name}")
 
     File.open(@image, 'rb') do |file|
-      obj.put(body: file)
+      obj.put(acl: "public-read", body: file)
     end
   end
 end
