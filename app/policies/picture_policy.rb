@@ -8,4 +8,8 @@ class PicturePolicy < ApplicationPolicy
   def create?
     true
   end
+
+  def convert?
+    true
+  end
 end

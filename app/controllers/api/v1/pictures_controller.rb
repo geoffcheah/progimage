@@ -1,5 +1,6 @@
 class Api::V1::PicturesController < Api::V1::BaseController
-  acts_as_token_authentication_handler_for User, only: [ :create ]
+  acts_as_token_authentication_handler_for User, only: [ :create, :convert ]
+
   def show
     @picture = Picture.find(params[:id])
     authorize @picture
@@ -14,7 +15,7 @@ class Api::V1::PicturesController < Api::V1::BaseController
 
     UploadToS3Service.new(aws_image_key, image_to_upload).call
 
-    @picture.remote_url = "https://s3-eu-west-1.amazonaws.com/progimage30/image_uploads/#{params["name"]}"
+    @picture.remote_url = "https://s3-eu-west-1.amazonaws.com/progimage30/image_uploads/#{aws_image_key}"
     authorize @picture
     if @picture.save
       render :show, status: :created
@@ -24,11 +25,32 @@ class Api::V1::PicturesController < Api::V1::BaseController
   end
 
   def convert
-    @picture = Picture.find(params[:id])
+    @picture = Picture.find(params["id"].to_i)
+    image_url = @picture.remote_url
+    new_format = params["convert_to"]
+    old_image_name_without_type = @picture.name.slice(/.*(?=\.)/)
+    new_image_name = "#{old_image_name_without_type}.#{new_format}"
+    image = MiniMagick::Image.open(image_url)
+    image.format(new_format)
+    image_to_upload = image.tempfile
+    UploadToS3Service.new(new_image_name, image_to_upload).call
+    @picture = Picture.new(name: new_image_name, description: @picture.description, user: @picture.user )
+    @picture.remote_url = "https://s3-eu-west-1.amazonaws.com/progimage30/image_uploads/#{new_image_name}"
+    if @picture.save
+      render :show, status: :created
+    else
+      puts @picture.errors.messages
+      # render_error
+    end
   end
 
 
   private
+
+  def render_error
+    render json: { errors: @picture.errors.full_messages },
+      status: :unprocessable_entity
+  end
 
   # def picture_params
   #   params.require(:picture).permit(:name, :description, :picture)
