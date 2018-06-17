@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'api/v1/pictures_controller'
 
 RSpec.describe Api::V1::PicturesController, :type => :controller do
-  let(:user) { User.create!(email: "g@gmail.com", password: "123456", authentication_token: "abcdefghijklmn0p")}
+  let(:user) { User.create!(email: "g@gmail.com", password: "123456", authentication_token: "mhyYGWJ_yxoyZRR1h8Dk")}
   let(:valid_attributes) do
     {
       name: "IMG_8394.JPG",
@@ -20,10 +20,18 @@ RSpec.describe Api::V1::PicturesController, :type => :controller do
   end
 
   describe "GET show" do
+    render_views
+
     it "assigns @picture to the requested picture" do
       picture = Picture.create!(valid_attributes)
-      get :show, params: { :id => picture.to_param }
-      expect(assigns(:picture)).to  eq(picture)
+      get :show, params: { :id => picture.id}
+      expect(assigns(:picture)).to eq(picture)
+    end
+
+    it "returns a json template" do
+      picture = Picture.create!(name: "some_name.jpg", remote_url: "some_url", user: user)
+      get :show, params: { :id => picture.id }
+      expect(response).to render_template(:show)
     end
 
     it "returns a 200 OK status" do
@@ -34,11 +42,13 @@ RSpec.describe Api::V1::PicturesController, :type => :controller do
   end
 
   describe "POST create" do
+    render_views
+
     context "with valid params" do
       it "creates a new picture" do
         picture = Picture.create!(valid_attributes)
         expect {
-          post :create, params: { :picture => valid_attributes}
+          p post :create, params: { :picture => valid_attributes}
         }.to change(Picture, :count).by(1)
       end
 
