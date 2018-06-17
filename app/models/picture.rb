@@ -4,7 +4,7 @@ class Picture < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   validates :remote_url, presence: true, uniqueness: true
 
-  mount_uploader :image, ImageUploader
+  # mount_uploader :image, ImageUploader
 
 
 end
