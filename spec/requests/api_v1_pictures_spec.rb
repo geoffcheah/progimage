@@ -14,7 +14,8 @@ describe "Pictures API" do
 
   context "when calling the GET pictures/:id (show) endpoint or returning newly created image information" do
     it "returns a json with the picture's key information" do
-      get '/api/v1/pictures/:id'
+      binding.pry
+      get '/api/v1/pictures/1'
       expect(response).to be_success
       expect(parsed_json["name"]).to eq("IMG_8394.JPG")
       expect(parsed_json["remote_url"]).to eq("https://s3-eu-west-1.amazonaws.com/progimage30/image_uploads/IMG_8394.JPG")
