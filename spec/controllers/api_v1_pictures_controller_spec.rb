@@ -14,11 +14,11 @@ RSpec.describe Api::V1::PicturesController, :type => :controller do
     }
   end
 
-  let(:pic_attributes_in_form_params) do
-    { name: "IMG_8394.JPG",
-      description: "some description"
-    }
-  end
+  # let(:pic_attributes_in_form_params) do
+  #   { name: "IMG_8394.JPG",
+  #     description: "some description"
+  #   }
+  # end
 
   let(:invalid_params) do
     {
@@ -75,6 +75,9 @@ RSpec.describe Api::V1::PicturesController, :type => :controller do
         post :create, format: :json, params: { :picture => valid_attributes }
         expect(response).to render_template(:show)
       end
+
+      # it "uploads the image to amazon s3 successfully"
+      # Visiting the picture's remote url has a 200 status
     end
 
     context "with invalid params" do
@@ -100,11 +103,14 @@ RSpec.describe Api::V1::PicturesController, :type => :controller do
 
   #   context "with valid request parameters" do
   #     it "gets the right picture and its url" do
-  #       post :convert, params { :}
-  #       picture = Picture.find(valid_request[:id])
-  #       expect(picture).to be
+  #       post :convert, params { :picture => valid_request }
+  #
   #     end
   #   end
+
+        # it "converts the requested image to a different specified format"
+        # it "uploads the converted picture to Amazon S3"
+        # visiting the picture's remote url has a 200 status
   # end
 
 end

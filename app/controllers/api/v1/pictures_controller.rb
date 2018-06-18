@@ -7,15 +7,12 @@ class Api::V1::PicturesController < Api::V1::BaseController
   end
 
   def create
-    # @picture = Picture.new(name: params["name"], description: params["description"])
     @picture = Picture.new(picture_params)
     @picture.user = current_user
     uploaded_io = params["picture"]
     aws_image_key = uploaded_io.original_filename
     image_to_upload = uploaded_io.tempfile
-
     UploadToS3Service.new(aws_image_key, image_to_upload).call
-
     @picture.remote_url = "https://s3-eu-west-1.amazonaws.com/progimage30/image_uploads/#{aws_image_key}"
     authorize @picture
     if @picture.save
